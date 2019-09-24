@@ -93,7 +93,7 @@ require_success $?
 
 echo "Transaction hash: \"$receipt\".  Waiting for transaction to complete..."
 wait_for_receipt "$receipt"
-echo "Transaction completed"
+echo "Transaction completed and pool registration completed for $identity_address."
 
 echo "Sending delegate call with 1000 Aions..."
 NONCE=$((NONCE + 1))
@@ -118,5 +118,3 @@ callPayload="$(java -cp $TOOLS_JAR cli.ComposeCallPayload "isActive" "$identity_
 # This result in boolean:  0x02 (byte), value
 verify_state "$STAKER_REGISTRY_ADDRESS" "$callPayload" '{"result":"0x0201","id":1,"jsonrpc":"2.0"}'
 echo "$identity_address is now active."
-
-echo "Registration complete."
